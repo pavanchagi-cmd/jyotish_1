@@ -83,4 +83,4 @@ every push. Set `TEST_DATABASE_URL` (throwaway Postgres) to also run
 `tests/integration` locally; CI always runs them. `npm run db:generate` after editing the schema; review the SQL.
 
 ## Build phases (spec section 12)
-1. Foundation ✅  2. Birth input ✅  3. Engine ✅  4. Charts  5. Gemini  6. Forecast + polish
+1. Foundation ✅  2. Birth input ✅  3. Engine ✅  4. Charts ✅  5. Gemini  6. Forecast + polish
