@@ -1,0 +1,7 @@
+IN.24	Rajasthan	Rajasthan	0
+IN.19	Karnataka	Karnataka	0
+IN.16	Maharashtra	Maharashtra	0
+IN.40	Telangana	Telangana	0
+PK.05	Sindh	Sindh	0
+GB.ENG	England	England	0
+BR.27	São Paulo	São Paulo	0

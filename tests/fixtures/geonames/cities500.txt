@@ -1,0 +1,11 @@
+9000001	Jaipur	Jaipur	Jaypur,Jeypore,जयपुर	26.9124	75.7873	P	PPLA	IN		24				3000000		0	Asia/Kolkata	2026-01-01
+9000002	Bengaluru	Bengaluru	Bangalore,ಬೆಂಗಳೂರು,Bengaluru	12.9716	77.5946	P	PPLA	IN		19				8000000		0	Asia/Kolkata	2026-01-01
+9000003	Mumbai	Mumbai	Bombay,मुंबई	19.076	72.8777	P	PPLA	IN		16				12000000		0	Asia/Kolkata	2026-01-01
+9000004	Jaisalmer	Jaisalmer		26.9157	70.9083	P	PPL	IN		24				60000		0	Asia/Kolkata	2026-01-01
+9000005	Testpur	Testpur		25.0	80.0	P	PPL	IN		24				600		0	Asia/Kolkata	2026-01-01
+9000006	Hyderabad	Hyderabad		17.385	78.4867	P	PPLA	IN		40				6800000		0	Asia/Kolkata	2026-01-01
+9000007	Hyderabad	Hyderabad		25.396	68.3578	P	PPL	PK		05				1700000		0	Asia/Karachi	2026-01-01
+9000008	London	London	Londres,Londra	51.5074	-0.1278	P	PPLC	GB		ENG				8900000		0	Europe/London	2026-01-01
+9000009	Smalltown	Smalltown		52.0	-1.0	P	PPL	GB		ENG				5000		0	Europe/London	2026-01-01
+9000010	São Paulo	Sao Paulo	Sampa	-23.5505	-46.6333	P	PPLA	BR		27				12300000		0	America/Sao_Paulo	2026-01-01
+9000011	Some Hill	Some Hill		26.0	75.0	T	HLL	IN		24				0		0	Asia/Kolkata	2026-01-01
