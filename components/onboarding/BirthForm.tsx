@@ -29,7 +29,11 @@ const chip = (selected: boolean) =>
   selected ? "border-accent bg-warm-strong text-warm-text" : "border-border bg-surface text-text";
 
 /** Birth details form (design/Main.html, spec section 4). */
-export function BirthForm({ redirectTo = "/", submitLabel = "Generate my Kundali" }: { redirectTo?: string; submitLabel?: string } = {}) {
+export function BirthForm({
+  redirectTo = "/",
+  submitLabel = "Generate my Kundali",
+  forSomeoneElse = false,
+}: { redirectTo?: string; submitLabel?: string; forSomeoneElse?: boolean } = {}) {
   const router = useRouter();
   const id = useId();
   const [fullName, setFullName] = useState("");
@@ -44,6 +48,7 @@ export function BirthForm({ redirectTo = "/", submitLabel = "Generate my Kundali
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [consent, setConsent] = useState(false);
 
   const effectiveTime = timeKnown && /^\d{2}:\d{2}$/.test(time) ? time : null;
   const resolveKey =
@@ -94,6 +99,7 @@ export function BirthForm({ redirectTo = "/", submitLabel = "Generate my Kundali
       place: place ? { name: placeLabel(place), lat: place.lat, lng: place.lng } : undefined,
       offsetChoice: choice,
       language,
+      consent,
     };
     const parsed = profileInputSchema.safeParse(payload);
     const next: Record<string, string> = {};
@@ -103,6 +109,7 @@ export function BirthForm({ redirectTo = "/", submitLabel = "Generate my Kundali
         next[key] ??= key === "place" ? "Choose your place of birth from the list." : issue.message;
       }
     }
+    if (!consent) next.consent = "Please tick this box to continue.";
     if (resolution?.status === "nonexistent" && choice.kind !== "custom") {
       next.offset = "Enter the UTC offset from your birth record, or check the time.";
     }
@@ -296,6 +303,32 @@ export function BirthForm({ redirectTo = "/", submitLabel = "Generate my Kundali
           </button>
         </div>
       </fieldset>
+
+      <div className="flex flex-col gap-1">
+        <label className="flex min-h-11 cursor-pointer items-start gap-3 text-sm leading-normal text-text-soft">
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            aria-invalid={errors.consent ? true : undefined}
+            aria-describedby={errors.consent ? `${id}-consent-err` : undefined}
+            className="mt-0.5 size-5 shrink-0 accent-accent"
+          />
+          <span>
+            {forSomeoneElse
+              ? "I have this person’s permission to save their birth details for matching. "
+              : "I agree that Jyotish stores my birth details to calculate my charts and readings. I can delete them at any time. "}
+            <a href="/privacy" target="_blank" rel="noopener" className="underline">
+              Privacy notice
+            </a>
+          </span>
+        </label>
+        {errors.consent ? (
+          <p id={`${id}-consent-err`} className="m-0 text-sm text-warm-text">
+            {errors.consent}
+          </p>
+        ) : null}
+      </div>
 
       <div aria-live="assertive" className="text-sm text-warm-text empty:hidden">
         {formError}

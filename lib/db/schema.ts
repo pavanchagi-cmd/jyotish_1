@@ -202,3 +202,25 @@ export const geocodeCache = pgTable(
   },
   (t) => [index("geocode_cache_created_at_idx").on(t.createdAt)],
 ).enableRLS();
+
+/**
+ * Privacy consent (India DPDP Act 2023, spec section 9): one row per user,
+ * recorded at onboarding. Deleted with the user.
+ */
+export const consents = pgTable(
+  "consents",
+  {
+    userId: uuid("user_id")
+      .primaryKey()
+      .references(() => authUsers.id, { onDelete: "cascade" }),
+    version: text("version").notNull(),
+    consentedAt: timestamp("consented_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    pgPolicy("consents_owner_select", {
+      for: "select",
+      to: authenticatedRole,
+      using: sql`${t.userId} = ${authUid}`,
+    }),
+  ],
+).enableRLS();

@@ -22,6 +22,7 @@ const jaipur = {
   place: { name: "Jaipur, Rajasthan, India", lat: 26.9124, lng: 75.7873 },
   offsetChoice: { kind: "auto" },
   language: "en",
+  consent: true,
 };
 
 const post = (body: unknown) =>

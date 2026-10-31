@@ -7,9 +7,9 @@ export const metadata = { title: "Sign in · Jyotish" };
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string; error?: string }>;
+  searchParams: Promise<{ next?: string; error?: string; deleted?: string }>;
 }) {
-  const { next, error } = await searchParams;
+  const { next, error, deleted } = await searchParams;
   const configured = hasSupabaseEnv();
 
   return (
@@ -21,6 +21,11 @@ export default async function LoginPage({
           Sign in to save your birth details and see your Kundali, daily horoscope and Panchang.
         </p>
       </div>
+      {deleted ? (
+        <p role="status" className="rounded-[14px] border border-border bg-surface px-4 py-3 text-sm text-text-soft">
+          Your data has been deleted.
+        </p>
+      ) : null}
       {error ? (
         <p role="alert" className="rounded-[14px] border border-warm-border bg-warm-surface px-4 py-3 text-sm text-warm-soft">
           Sign-in did not finish. Please try again.

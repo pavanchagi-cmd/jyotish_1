@@ -27,7 +27,7 @@ export default async function OnboardingPage({ searchParams }: { searchParams: P
           Saving is not configured yet. Add the Supabase and database environment variables to enable it.
         </p>
       ) : null}
-      {addingPartner ? <BirthForm redirectTo="/match" submitLabel="Save and match" /> : <BirthForm />}
+      {addingPartner ? <BirthForm redirectTo="/match" submitLabel="Save and match" forSomeoneElse /> : <BirthForm />}
     </main>
   );
 }

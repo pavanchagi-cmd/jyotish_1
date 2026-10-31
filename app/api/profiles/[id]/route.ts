@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { deleteSecondaryProfile } from "@/lib/db/account";
 import { saveChart } from "@/lib/db/charts";
 import { hasDatabase, jsonError, parseJson, requireUser } from "@/lib/api/http";
 import { publicProfile, updateProfile } from "@/lib/db/profiles";
@@ -32,4 +33,17 @@ export async function PATCH(request: Request, ctx: { params: Promise<{ id: strin
     if (err instanceof OffsetChoiceError) return jsonError(422, err.message);
     throw err;
   }
+}
+
+/** DELETE /api/profiles/:id — remove a partner/family profile (not the user's own). */
+export async function DELETE(_request: Request, ctx: { params: Promise<{ id: string }> }) {
+  const auth = await requireUser();
+  if ("response" in auth) return auth.response;
+  if (!hasDatabase()) return jsonError(503, "Not configured yet.");
+  const id = idSchema.safeParse((await ctx.params).id);
+  if (!id.success) return jsonError(404, "Profile not found.");
+  const result = await deleteSecondaryProfile(auth.userId, id.data);
+  if (result === "not-found") return jsonError(404, "Profile not found.");
+  if (result === "primary") return jsonError(409, "Use “Delete my data” to remove your own profile.");
+  return new Response(null, { status: 204 });
 }

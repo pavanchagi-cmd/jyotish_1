@@ -13,6 +13,7 @@ const base = {
   timeKnown: true,
   offsetChoice: { kind: "auto" },
   language: "en",
+  consent: true,
 };
 const girl = { ...base, fullName: "Girl Example", date: "1995-08-14", time: "06:42", place: { name: "Jaipur", lat: 26.9124, lng: 75.7873 } };
 const boy = { ...base, fullName: "Boy Example", gender: "male", date: "1993-02-10", time: "21:15", place: { name: "Bengaluru", lat: 12.9716, lng: 77.5946 } };

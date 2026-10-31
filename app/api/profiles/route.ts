@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { hasConsent, recordConsent } from "@/lib/db/account";
 import { saveChart } from "@/lib/db/charts";
 import { hasDatabase, jsonError, parseJson, requireUser } from "@/lib/api/http";
 import { createProfile, publicProfile } from "@/lib/db/profiles";
@@ -16,7 +17,13 @@ export async function POST(request: Request) {
   const body = await parseJson(request, profileInputSchema);
   if ("response" in body) return body.response;
 
+  // DPDP consent: required before storing anyone's birth details.
+  if (body.data.consent !== true) {
+    return jsonError(400, "Please confirm the privacy consent to continue.", { issues: [{ path: "consent", message: "Required" }] });
+  }
+
   try {
+    if (!(await hasConsent(auth.userId))) await recordConsent(auth.userId);
     const zone = zoneForCoordinates(body.data.place.lat, body.data.place.lng);
     const row = await createProfile(auth.userId, profileColumns(body.data, zone));
     await saveChart(row);

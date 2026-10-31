@@ -42,6 +42,8 @@ export const profileInputSchema = z
     place: coordinatesSchema.extend({ name: z.string().trim().min(1).max(200) }),
     offsetChoice: offsetChoiceSchema,
     language: languageSchema,
+    /** Privacy consent (own data) or permission (someone else's data). Required to create a profile. */
+    consent: z.boolean().optional(),
   })
   .refine((v) => !v.timeKnown || v.time !== null, { message: "Enter your time of birth.", path: ["time"] });
 

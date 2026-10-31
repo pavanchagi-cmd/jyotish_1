@@ -33,3 +33,11 @@ export async function getUserId(): Promise<string | null> {
   const sub = data?.claims?.sub;
   return typeof sub === "string" ? sub : null;
 }
+
+/** The signed-in user's email from the verified JWT claims, or null. */
+export async function getUserEmail(): Promise<string | null> {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  const email = data?.claims?.email;
+  return typeof email === "string" ? email : null;
+}

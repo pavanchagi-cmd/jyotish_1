@@ -17,6 +17,7 @@ const profile = {
   place: { name: "Jaipur", lat: 26.9124, lng: 75.7873 },
   offsetChoice: { kind: "auto" },
   language: "en",
+  consent: true,
 };
 
 const responses: Record<string, unknown> = {
