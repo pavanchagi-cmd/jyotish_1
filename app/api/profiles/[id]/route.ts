@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { saveChart } from "@/lib/db/charts";
 import { hasDatabase, jsonError, parseJson, requireUser } from "@/lib/api/http";
 import { publicProfile, updateProfile } from "@/lib/db/profiles";
 import { profileColumns } from "@/lib/profiles/compute";
@@ -25,6 +26,7 @@ export async function PATCH(request: Request, ctx: { params: Promise<{ id: strin
     const zone = zoneForCoordinates(body.data.place.lat, body.data.place.lng);
     const row = await updateProfile(auth.userId, id.data, profileColumns(body.data, zone));
     if (!row) return jsonError(404, "Profile not found.");
+    await saveChart(row);
     return NextResponse.json({ profile: publicProfile(row) });
   } catch (err) {
     if (err instanceof OffsetChoiceError) return jsonError(422, err.message);
