@@ -29,7 +29,7 @@ const chip = (selected: boolean) =>
   selected ? "border-accent bg-warm-strong text-warm-text" : "border-border bg-surface text-text";
 
 /** Birth details form (design/Main.html, spec section 4). */
-export function BirthForm() {
+export function BirthForm({ redirectTo = "/", submitLabel = "Generate my Kundali" }: { redirectTo?: string; submitLabel?: string } = {}) {
   const router = useRouter();
   const id = useId();
   const [fullName, setFullName] = useState("");
@@ -124,7 +124,7 @@ export function BirthForm() {
         setFormError(data.error ?? "Could not save. Please try again.");
         return;
       }
-      router.replace("/");
+      router.replace(redirectTo);
       router.refresh();
     } catch {
       setFormError("Could not save. Please check your connection.");
@@ -306,7 +306,7 @@ export function BirthForm() {
         disabled={saving}
         className="mt-1 flex h-[54px] items-center justify-center rounded-[14px] bg-accent text-[17px] font-semibold text-accent-ink disabled:opacity-60"
       >
-        {saving ? "Saving…" : "Generate my Kundali"}
+        {saving ? "Saving…" : submitLabel}
       </button>
     </form>
   );

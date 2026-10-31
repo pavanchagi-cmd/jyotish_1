@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { z } from "zod";
 import { ComingSoon } from "@/components/ComingSoon";
+import { ChartExplanation } from "@/components/kundali/ChartExplanation";
 import { Disclaimer } from "@/components/Disclaimer";
 import { KundaliView } from "@/components/kundali/KundaliView";
 import { getChart } from "@/lib/db/charts";
@@ -45,7 +46,7 @@ export default async function KundaliPage({ searchParams }: { searchParams: Prom
 
       <KundaliView profileId={profile.id} chart={chart} />
 
-      <ComingSoon phase={5} what="“Your chart in simple words”" />
+      <ChartExplanation profileId={profile.id} />
       <Disclaimer />
     </>
   );

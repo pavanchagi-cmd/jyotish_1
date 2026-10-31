@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ComingSoon } from "@/components/ComingSoon";
+import { Disclaimer } from "@/components/Disclaimer";
+import { HoroscopeCard } from "@/components/home/HoroscopeCard";
 import { PanchangCard } from "@/components/panchang/PanchangCard";
 import { TodayLabel } from "@/components/TodayLabel";
 import { SIGNS } from "@/lib/astro/tables/signs";
@@ -51,7 +52,7 @@ export default async function HomePage() {
         </p>
       ) : null}
 
-      <ComingSoon phase={5} what="Your daily, weekly and monthly horoscope" />
+      {profile ? <HoroscopeCard profileId={profile.id} /> : null}
 
       <PanchangCard
         fallback={
@@ -74,6 +75,7 @@ export default async function HomePage() {
           <span className="text-[13px] text-warm-soft">Year by year, simply</span>
         </Link>
       </div>
+      <Disclaimer />
     </>
   );
 }
