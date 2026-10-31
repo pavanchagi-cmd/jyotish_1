@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { z } from "zod";
-import { ComingSoon } from "@/components/ComingSoon";
+import { GetStarted } from "@/components/GetStarted";
 import { ChartExplanation } from "@/components/kundali/ChartExplanation";
 import { Disclaimer } from "@/components/Disclaimer";
 import { KundaliView } from "@/components/kundali/KundaliView";
@@ -18,7 +18,7 @@ export default async function KundaliPage({ searchParams }: { searchParams: Prom
     return (
       <>
         <h1 className="m-0 font-heading text-[26px] font-bold">My Kundali</h1>
-        <ComingSoon phase={2} what="Your Kundali (sign in and add your birth details first)" />
+        <GetStarted state={current.state} />
       </>
     );
   }

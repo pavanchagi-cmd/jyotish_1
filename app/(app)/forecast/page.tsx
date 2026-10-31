@@ -1,4 +1,4 @@
-import { ComingSoon } from "@/components/ComingSoon";
+import { GetStarted } from "@/components/GetStarted";
 import { Disclaimer } from "@/components/Disclaimer";
 import { ForecastView } from "@/components/forecast/ForecastView";
 import { PageHeader } from "@/components/PageHeader";
@@ -14,7 +14,7 @@ export default async function ForecastPage() {
     return (
       <>
         {header}
-        <ComingSoon phase={2} what="Your forecast (sign in and add your birth details first)" />
+        <GetStarted state={current.state} />
       </>
     );
   }

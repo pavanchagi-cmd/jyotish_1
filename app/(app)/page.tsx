@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Disclaimer } from "@/components/Disclaimer";
+import { GetStarted } from "@/components/GetStarted";
 import { HoroscopeCard } from "@/components/home/HoroscopeCard";
 import { PanchangCard } from "@/components/panchang/PanchangCard";
 import { TodayLabel } from "@/components/TodayLabel";
@@ -56,15 +57,14 @@ export default async function HomePage() {
         </p>
       ) : null}
 
-      {profile ? <HoroscopeCard profileId={profile.id} lang={profile.language} /> : null}
-
-      <PanchangCard
-        fallback={
-          profile
-            ? { lat: profile.lat, lng: profile.lng, label: profile.placeName.split(",")[0]! }
-            : { lat: 12.9716, lng: 77.5946, label: "Bengaluru" }
-        }
-      />
+      {profile ? (
+        <>
+          <HoroscopeCard profileId={profile.id} lang={profile.language} />
+          <PanchangCard fallback={{ lat: profile.lat, lng: profile.lng, label: profile.placeName.split(",")[0]! }} />
+        </>
+      ) : current.state !== "ready" ? (
+        <GetStarted state={current.state} />
+      ) : null}
 
       <h2 className="mt-1 mb-0 font-heading text-[21px] font-bold">Explore your chart</h2>
       <div className="grid grid-cols-2 gap-2.5">

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { ComingSoon } from "@/components/ComingSoon";
+import { GetStarted } from "@/components/GetStarted";
 import { Disclaimer } from "@/components/Disclaimer";
 import { DashaView } from "@/components/dasha/DashaView";
 import { PageHeader } from "@/components/PageHeader";
@@ -16,7 +16,7 @@ export default async function DashaPage() {
     return (
       <>
         {header}
-        <ComingSoon phase={2} what="Your dasha (sign in and add your birth details first)" />
+        <GetStarted state={current.state} />
       </>
     );
   }

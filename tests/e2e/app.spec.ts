@@ -26,7 +26,9 @@ test("onboarding → home → each tab", async ({ page }) => {
   expect(body).toMatchObject({ fullName: "Ananya Sharma", date: "1995-08-14", time: "06:42", consent: true, offsetChoice: { kind: "auto" } });
 
   await page.waitForURL("/");
-  await expect(page.getByText("Shanivara").first()).toBeVisible();
+  // This test build has no Supabase/DB settings, so every screen explains the setup and links onward.
+  await expect(page.getByRole("heading", { name: /Setup needed/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Preview the birth details form" })).toHaveAttribute("href", "/onboarding");
   await expectAccessible(page);
 
   for (const [tab, heading] of [
@@ -39,6 +41,8 @@ test("onboarding → home → each tab", async ({ page }) => {
     await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: tab, exact: true }).click();
     await expect(page.getByRole("heading", { name: heading, level: 1 })).toBeVisible();
     await expect(page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: tab, exact: true })).toHaveAttribute("aria-current", "page");
+    await expect(page.getByRole("heading", { name: /Setup needed/ })).toBeVisible();
+    await expect(page.getByText(/build phase/)).toHaveCount(0);
     await expectAccessible(page);
   }
 });
