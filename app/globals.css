@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@layer base {
+  html {
+    background-color: #14112B;
+  }
+  body {
+    @apply bg-bg text-text font-body antialiased;
+    margin: 0;
+  }
+  a {
+    @apply text-accent;
+  }
+  a:hover {
+    @apply text-accent-hover;
+  }
+  input::placeholder {
+    @apply text-muted;
+    opacity: 1;
+  }
+  :focus-visible {
+    outline: 2px solid #F5A524;
+    outline-offset: 2px;
+  }
+}
