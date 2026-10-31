@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# next.js / vercel
+.next/
+out/
+.vercel/
+next-env.d.ts
+*.tsbuildinfo
+
+# env files (only .env.example is committed)
+.env*
+!.env.example
+
+# testing
+coverage/
+playwright-report/
+test-results/
+
+# misc
+.DS_Store
+*.log

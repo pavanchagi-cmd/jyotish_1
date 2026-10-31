@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Birth details</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&amp;family=Hind:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#F5A524}a:hover{color:#FFC861}
+input::placeholder{color:#B8B3D6;opacity:1}
+</style>
+</helmet>
+<div style="width: 390px; height: 1120px; box-sizing: border-box; background: #14112B; color: #F4F1FF; font-family: 'Hind', system-ui, sans-serif; padding: 24px 20px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<div style="font-family: 'Philosopher', Georgia, serif; font-size: 22px; font-weight: 700; color: {{accent}}">Jyotish</div>
+<div style="font-size: 13px; color: #B8B3D6">Step 1 of 2</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: 'Philosopher', Georgia, serif; font-size: 30px; line-height: 1.15">Your birth details</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #B8B3D6">A Kundali is a picture of the sky at the exact moment you were born. The more accurate these details, the more accurate your readings.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="nm" style="font-size: 14px; font-weight: 600">Full name</label>
+<input id="nm" placeholder="e.g. Ananya Sharma" style="height: 48px; box-sizing: border-box; border-radius: 12px; border: 1px solid #3A3466; background: #221E42; color: #F4F1FF; padding: 0 14px; font-size: 16px; font-family: inherit">
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 14px; font-weight: 600">Gender <span style="font-weight: 400; color: #B8B3D6">(used for Kundali matching)</span></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<button style="height: 44px; border-radius: 12px; border: 1px solid {{accent}}; background: #3A2E1A; color: #FFD58A; font-family: inherit; font-size: 15px">Female</button>
+<button style="height: 44px; border-radius: 12px; border: 1px solid #3A3466; background: #221E42; color: #F4F1FF; font-family: inherit; font-size: 15px">Male</button>
+<button style="height: 44px; border-radius: 12px; border: 1px solid #3A3466; background: #221E42; color: #F4F1FF; font-family: inherit; font-size: 15px">Other</button>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="dob" style="font-size: 14px; font-weight: 600">Date of birth</label>
+<input id="dob" placeholder="14 Aug 1995" style="height: 48px; box-sizing: border-box; border-radius: 12px; border: 1px solid #3A3466; background: #221E42; color: #F4F1FF; padding: 0 14px; font-size: 16px; font-family: inherit">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="tob" style="font-size: 14px; font-weight: 600">Exact time of birth</label>
+<input id="tob" placeholder="06:42 AM" style="height: 48px; box-sizing: border-box; border-radius: 12px; border: 1px solid {{accent}}; background: #221E42; color: #F4F1FF; padding: 0 14px; font-size: 16px; font-family: inherit">
+</div>
+</div>
+
+<div style="background: #2A2410; border: 1px solid #5C4A1A; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 14px; font-weight: 600; color: #FFD58A">Why the exact time matters</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #F1E6CC">Your Lagna (ascendant) changes roughly every 2 hours. Example: born at 06:42 AM in Jaipur gives a Leo Lagna; born at 08:50 AM the same day gives Virgo, which changes every house in your chart. Use the time on your birth certificate or hospital record.</p>
+<a href="#" style="font-size: 14px; font-weight: 600">I don’t know my exact time</a>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="pob" style="font-size: 14px; font-weight: 600">Place of birth</label>
+<input id="pob" placeholder="Jaipur, Rajasthan, India" style="height: 48px; box-sizing: border-box; border-radius: 12px; border: 1px solid #3A3466; background: #221E42; color: #F4F1FF; padding: 0 14px; font-size: 16px; font-family: inherit">
+</div>
+
+<div style="background: #221E42; border: 1px solid #3A3466; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; font-weight: 600; color: #B8B3D6; letter-spacing: 0.06em; text-transform: uppercase">Auto-detected for accuracy</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div><div style="font-size: 12px; color: #B8B3D6">Latitude</div><div style="font-size: 16px; font-weight: 600">26.91° N</div></div>
+<div><div style="font-size: 12px; color: #B8B3D6">Longitude</div><div style="font-size: 16px; font-weight: 600">75.79° E</div></div>
+<div><div style="font-size: 12px; color: #B8B3D6">Time zone in 1995</div><div style="font-size: 16px; font-weight: 600">IST · UTC +05:30</div></div>
+<div><div style="font-size: 12px; color: #B8B3D6">Daylight saving</div><div style="font-size: 16px; font-weight: 600">Not in use</div></div>
+</div>
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: #B8B3D6">We use the time zone that was in force on your birth date, not today’s. Example: Mumbai used its own “Bombay Time” until 1955, and India used UTC +06:30 during parts of WWII.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 14px; font-weight: 600">Reading language</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<button style="height: 40px; padding: 0 16px; border-radius: 20px; border: 1px solid {{accent}}; background: #3A2E1A; color: #FFD58A; font-family: inherit; font-size: 15px">English</button>
+<button style="height: 40px; padding: 0 16px; border-radius: 20px; border: 1px solid #3A3466; background: #221E42; color: #F4F1FF; font-family: inherit; font-size: 15px">हिन्दी</button>
+<button style="height: 40px; padding: 0 16px; border-radius: 20px; border: 1px solid #3A3466; background: #221E42; color: #F4F1FF; font-family: inherit; font-size: 15px">ಕನ್ನಡ</button>
+<button style="height: 40px; padding: 0 16px; border-radius: 20px; border: 1px solid #3A3466; background: #221E42; color: #F4F1FF; font-family: inherit; font-size: 15px">More</button>
+</div>
+</div>
+
+<a href="Home.dc.html" style="margin-top: 4px; height: 54px; border-radius: 14px; background: {{accent}}; color: #1A1405; font-size: 17px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center">Generate my Kundali</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F5A524","options":["#F5A524","#E8875A","#7FB3FF"]},"$preview":{"width":390,"height":1120}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#F5A524' };
+  }
+}
+</script>
+</body>
+</html>
