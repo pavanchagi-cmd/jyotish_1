@@ -16,7 +16,8 @@
     "test:watch": "vitest",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "data:places": "tsx scripts/build-places.ts"
+    "data:places": "tsx scripts/build-places.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
@@ -36,7 +37,9 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@next/env": "^16.4.3",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/luxon": "^3.7.6",
     "@types/node": "^26.6.6",
@@ -50,5 +53,10 @@
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "vitest": "^5.0.5"
+  },
+  "overrides": {
+    "@axe-core/playwright": {
+      "playwright-core": "1.63.0"
+    }
   }
 }

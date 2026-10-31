@@ -26,7 +26,7 @@ Supabase variables.
    `SUPABASE_SERVICE_ROLE_KEY`, and the **transaction pooler** connection string
    into `DATABASE_URL`.
 2. Apply the schema: `npm run db:migrate` (with `DATABASE_URL` set), or paste
-   each file in `drizzle/` (in order) into the Supabase SQL editor.
+   each file in `drizzle/` (in order: 0000, 0001, 0002) into the Supabase SQL editor.
 3. Authentication → Providers → **Google**: enable it and add the Google OAuth
    client ID and secret.
 4. Authentication → URL Configuration: add `http://localhost:3000/**`, your
@@ -36,6 +36,19 @@ Supabase variables.
 Import this GitHub repo at vercel.com/new (preset: Next.js), set every variable
 from `.env.example` for Production and Preview, and set `main` as the
 production branch.
+
+### Gemini
+Set `GEMINI_API_KEY` (and optionally `GEMINI_MODEL_DEEP` / `GEMINI_MODEL_FAST`).
+Without a key, charts, Panchang and scores still work; reading cards show a
+"try again" message. Live smoke test:
+
+```bash
+RUN_LLM_TESTS=1 GEMINI_API_KEY=your-key npm test -- tests/llm
+```
+
+### "Delete my data"
+Set `SUPABASE_SERVICE_ROLE_KEY` so deleting data also removes the sign-in
+account. Without it, all app data is deleted and the user is signed out.
 
 ### Place data (GeoNames)
 Type-ahead uses `data/places.json`, built from GeoNames `cities500` (CC BY 4.0):
@@ -58,6 +71,12 @@ in total (shared through Postgres) and caches results for 30 days.
 
 ```bash
 npm run lint && npm run typecheck && npm test && npm run build
+```
+
+End-to-end and accessibility tests (Playwright + axe, 390px and 1280px):
+
+```bash
+npm run build && npm run test:e2e
 ```
 
 API/database integration tests run when `TEST_DATABASE_URL` points at a

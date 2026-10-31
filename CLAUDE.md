@@ -78,6 +78,20 @@ Luxon + `geo-tz`, `@google/genai`, Zod, Vitest + Playwright.
   (`lib/astro/tables/lucky.ts`, TODO(verify)) and good time (Abhijit) are computed.
 - Live smoke tests: `RUN_LLM_TESTS=1 GEMINI_API_KEY=… npm test -- tests/llm`.
 
+## Phase 6 notes
+- 5-year forecast: `lib/astro/forecastFacts.ts` (dasha periods + slow-planet spells
+  per year, life-area houses career 10, finance 2/11, family 4, health 6/1,
+  marriage 7), one Gemini request per year, cache key `<year>@<current year>` so
+  it regenerates on 1 January; health text always ends with the disclaimer (code).
+- Privacy: consent required on every profile create (`consents` table, version in
+  `lib/db/account.ts`); `/profile` has language, saved profiles, delete my data
+  (`DELETE /api/me` deletes all rows, then the auth user if
+  `SUPABASE_SERVICE_ROLE_KEY` is set). `/privacy` is public; TODO(owner) legal review.
+- Languages: readings follow the profile language; Noto Sans Kannada is loaded.
+  UI strings are English until the owner supplies Hindi/Kannada strings.
+- E2E: `npm run build && npm run test:e2e` (Playwright, 390px + 1280px, axe zero
+  serious violations); CI job `e2e`.
+
 ## Layout
 ```
 app/(app)/…        Home, kundali, match, dasha, forecast (bottom nav shell)
@@ -96,4 +110,4 @@ every push. Set `TEST_DATABASE_URL` (throwaway Postgres) to also run
 `tests/integration` locally; CI always runs them. `npm run db:generate` after editing the schema; review the SQL.
 
 ## Build phases (spec section 12)
-1. Foundation ✅  2. Birth input ✅  3. Engine ✅  4. Charts ✅  5. Gemini ✅  6. Forecast + polish
+1. Foundation ✅  2. Birth input ✅  3. Engine ✅  4. Charts ✅  5. Gemini ✅  6. Forecast + polish ✅
