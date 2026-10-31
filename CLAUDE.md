@@ -65,6 +65,19 @@ Luxon + `geo-tz`, `@google/genai`, Zod, Vitest + Playwright.
   cross-cells, Manglik house set) await owner verification; see the `it.todo`s in
   `lib/astro/matching.test.ts`.
 
+## Gemini notes (phase 5)
+- `lib/llm/gemini.ts` is the only Gemini entry point (server-only). Structured
+  output from Zod schemas (`lib/llm/schemas.ts`), Zod validation + banned-phrase
+  check, one retry, then `LlmError` → friendly 503.
+- Facts builders (`lib/llm/facts.ts`) are the only data sent to Gemini; a test
+  asserts no birth date/time/place/coordinates leak.
+- `lib/db/readings.ts` caches by (subject, feature, period, facts hash, prompt
+  version, language); horoscopes are shared per Moon sign + Lagna. Bump the
+  prompt version in `lib/llm/prompts` when a template changes.
+- 30 Gemini calls/hour/user (cache hits are free). Lucky colour/number
+  (`lib/astro/tables/lucky.ts`, TODO(verify)) and good time (Abhijit) are computed.
+- Live smoke tests: `RUN_LLM_TESTS=1 GEMINI_API_KEY=… npm test -- tests/llm`.
+
 ## Layout
 ```
 app/(app)/…        Home, kundali, match, dasha, forecast (bottom nav shell)
@@ -83,4 +96,4 @@ every push. Set `TEST_DATABASE_URL` (throwaway Postgres) to also run
 `tests/integration` locally; CI always runs them. `npm run db:generate` after editing the schema; review the SQL.
 
 ## Build phases (spec section 12)
-1. Foundation ✅  2. Birth input ✅  3. Engine ✅  4. Charts ✅  5. Gemini  6. Forecast + polish
+1. Foundation ✅  2. Birth input ✅  3. Engine ✅  4. Charts ✅  5. Gemini ✅  6. Forecast + polish
