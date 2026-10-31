@@ -3,6 +3,7 @@
  *
  *   npm run data:places                 # downloads from download.geonames.org
  *   npm run data:places -- --dir ./dl   # uses cities500.zip (or .txt) + admin1CodesASCII.txt in ./dl
+ *   --optional                          # never fail (used by `prebuild` on Vercel/CI): warn and continue
  *
  * Keeps every populated place in India plus world cities with population ≥ 100,000.
  */
@@ -15,7 +16,7 @@ import type { PlacesFile } from "../lib/geo/places-data";
 const BASE = "https://download.geonames.org/export/dump";
 
 async function download(name: string): Promise<Uint8Array> {
-  const res = await fetch(`${BASE}/${name}`);
+  const res = await fetch(`${BASE}/${name}`, { signal: AbortSignal.timeout(120_000) });
   if (!res.ok) throw new Error(`Download failed: ${name} (${res.status})`);
   return new Uint8Array(await res.arrayBuffer());
 }
@@ -68,7 +69,13 @@ async function main() {
   console.log(`Wrote data/places.json: ${rows.length} places (${inCount} in India).`);
 }
 
+const optional = process.argv.includes("--optional");
+
 main().catch((err) => {
+  if (optional) {
+    console.warn(`[places] Could not build data/places.json (${(err as Error).message}). Type-ahead will be off; the Search button still works.`);
+    process.exit(0);
+  }
   console.error(err);
   process.exit(1);
 });

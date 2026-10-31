@@ -17,7 +17,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "data:places": "tsx scripts/build-places.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "prebuild": "tsx scripts/build-places.ts --optional"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",

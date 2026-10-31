@@ -106,7 +106,7 @@ export function BirthForm({
     if (!parsed.success) {
       for (const issue of parsed.error.issues) {
         const key = String(issue.path[0] ?? "form");
-        next[key] ??= key === "place" ? "Choose your place of birth from the list." : issue.message;
+        next[key] ??= key === "place" ? "Pick your place of birth from the suggestions, or tap Search to look it up." : issue.message;
       }
     }
     if (!consent) next.consent = "Please tick this box to continue.";

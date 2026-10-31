@@ -171,15 +171,22 @@ export function PlaceField({ value, onChange, error }: Props) {
       </div>
 
       {canSearch && mode === "suggest" ? (
-        <button
-          type="button"
-          onClick={runSearch}
-          disabled={busy}
-          className="flex min-h-11 items-center gap-2 self-start rounded-input border border-border bg-surface px-3.5 text-sm font-semibold text-text disabled:opacity-60"
-        >
-          <Search aria-hidden size={16} />
-          {busy ? "Searching…" : visible.length ? "Not in the list? Search all places" : `Search for “${query}”`}
-        </button>
+        <>
+          {!visible.length && !busy ? (
+            <p className="m-0 text-sm text-muted">No match in the city list yet. Tap Search to look it up.</p>
+          ) : null}
+          <button
+            type="button"
+            onClick={runSearch}
+            disabled={busy}
+            className={`flex min-h-11 items-center gap-2 self-start rounded-input px-3.5 text-sm font-semibold disabled:opacity-60 ${
+              visible.length ? "border border-border bg-surface text-text" : "bg-accent text-accent-ink"
+            }`}
+          >
+            <Search aria-hidden size={16} />
+            {busy ? "Searching…" : visible.length ? "Not in the list? Search all places" : `Search for “${query}”`}
+          </button>
+        </>
       ) : null}
 
       <div aria-live="polite" className="text-sm text-warm-text">
