@@ -55,6 +55,16 @@ Luxon + `geo-tz`, `@google/genai`, Zod, Vitest + Playwright.
      the signed-in user in code; RLS is the second safeguard.
    - App name stays "Jyotish".
 
+## Engine notes (phase 3)
+- Lahiri: mean value 23°15′00.658″ − 16.77″ at JD 2435553.5, IAU 2006 precession;
+  true ayanamsa adds nutation. Planets: astronomy-engine apparent longitude of
+  date − true ayanamsa. Rahu: Meeus mean node − mean ayanamsa. `ENGINE_VERSION`
+  in `lib/astro/config.ts` — bump it when any convention changes (stored charts
+  recompute on read).
+- Koota tables marked `TODO(verify)` (Vashya, Yoni non-enemy cells, Gana
+  cross-cells, Manglik house set) await owner verification; see the `it.todo`s in
+  `lib/astro/matching.test.ts`.
+
 ## Layout
 ```
 app/(app)/…        Home, kundali, match, dasha, forecast (bottom nav shell)
@@ -73,4 +83,4 @@ every push. Set `TEST_DATABASE_URL` (throwaway Postgres) to also run
 `tests/integration` locally; CI always runs them. `npm run db:generate` after editing the schema; review the SQL.
 
 ## Build phases (spec section 12)
-1. Foundation ✅  2. Birth input ✅  3. Engine  4. Charts  5. Gemini  6. Forecast + polish
+1. Foundation ✅  2. Birth input ✅  3. Engine ✅  4. Charts  5. Gemini  6. Forecast + polish

@@ -5,6 +5,8 @@
 they must never be generated or guessed.
 
 Until they arrive, the golden tests are `it.todo` (see spec section 10).
+The expected file format is documented at the top of `golden.test.ts`;
+drop the JSON files here and the tests run automatically.
 
 Required cases: births before 1956 (Mumbai, Kolkata), during 1942–45,
 near midnight, near a Lagna sign change, and outside India

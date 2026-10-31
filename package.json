@@ -21,6 +21,7 @@
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.118.0",
+    "astronomy-engine": "^2.1.19",
     "drizzle-orm": "^0.45.4",
     "geo-tz": "^8.1.10",
     "lucide-react": "^1.66.0",

@@ -11,6 +11,8 @@ export default defineConfig({
   },
   test: {
     environment: "node",
+    // Integration test files share (and wipe) one database, so run files one at a time.
+    fileParallelism: false,
     include: ["**/*.test.ts", "tests/**/*.test.ts"],
     exclude: ["node_modules/**", ".next/**", "tests/e2e/**"],
   },
