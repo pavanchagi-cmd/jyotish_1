@@ -26,11 +26,16 @@ Luxon + `geo-tz`, `@google/genai`, Zod, Vitest + Playwright.
 2. Golden-chart tests: `it.todo` until the owner supplies values.
 3. Births in India before 1956: ask the user to pick IST (default), Bombay Time
    +04:51, Calcutta Time +05:53:20, or a custom offset; save with
-   `tz_confirmed = true`. No city table. Offsets are stored in **seconds**
+   `tz_confirmed = true`. No city table. `tz_confirmed` is also true when the user
+   edits the offset manually; otherwise false (auto-detected). Offsets are stored in **seconds**
    (`utc_offset_seconds`) because +05:53:20 is not a whole number of minutes.
 4. Auth: Google sign-in only (no phone OTP).
-5. Geocoding: OpenStreetMap Nominatim behind an interface (`lib/geo`), so Google
-   Maps can be swapped in later.
+5. Geocoding behind the `Geocoder` interface (`lib/geo/types.ts`) so Google Places
+   can replace it: type-ahead from bundled GeoNames cities500 (`data/places.json`,
+   CC BY 4.0; all of India + world cities with population ≥ 100,000, built by
+   `npm run data:places`) via `/api/places/suggest`; a "Search" button falls back
+   to Nominatim (`/api/places/search`, 1 req/s app-wide via `external_throttle`,
+   identifying User-Agent, 30-day `geocode_cache`). Never call Nominatim per keystroke.
 6. Rate limits: stored in Postgres (`usage_events`), no Upstash.
 7. Defaults accepted for the remaining open points:
    - "Good time" = Abhijit Muhurta computed in code; lucky colour/number from a
@@ -64,7 +69,8 @@ drizzle/           SQL migrations          tests/golden  reference charts (owner
 
 ## Commands
 `npm run lint && npm run typecheck && npm test && npm run build` must pass before
-every push. `npm run db:generate` after editing the schema; review the SQL.
+every push. Set `TEST_DATABASE_URL` (throwaway Postgres) to also run
+`tests/integration` locally; CI always runs them. `npm run db:generate` after editing the schema; review the SQL.
 
 ## Build phases (spec section 12)
-1. Foundation ✅  2. Birth input  3. Engine  4. Charts  5. Gemini  6. Forecast + polish
+1. Foundation ✅  2. Birth input ✅  3. Engine  4. Charts  5. Gemini  6. Forecast + polish
