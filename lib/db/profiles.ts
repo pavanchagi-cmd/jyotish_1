@@ -1,5 +1,5 @@
 import "server-only";
-import { and, eq } from "drizzle-orm";
+import { and, asc, desc, eq } from "drizzle-orm";
 import { getDb } from "./index";
 import { charts, profiles } from "./schema";
 
@@ -77,4 +77,13 @@ export function publicProfile(p: ProfileRow) {
     language: p.language,
     isPrimary: p.isPrimary,
   };
+}
+
+/** All of the user's profiles, primary first. */
+export async function listProfiles(userId: string): Promise<ProfileRow[]> {
+  return getDb()
+    .select()
+    .from(profiles)
+    .where(eq(profiles.userId, userId))
+    .orderBy(desc(profiles.isPrimary), asc(profiles.createdAt));
 }

@@ -72,7 +72,8 @@ describe.skipIf(!DB)("engine API with Postgres", () => {
 
   it("returns dasha, transits and Sade Sati", async () => {
     const { GET } = await import("@/app/api/dasha/[profileId]/route");
-    const { dasha } = await (await GET(new Request("http://test"), params("profileId", girlId))).json();
+    const { NextRequest } = await import("next/server");
+    const { dasha } = await (await GET(new NextRequest("http://test/api/dasha"), params("profileId", girlId))).json();
     expect(dasha.current.mahadasha.lord).toBeTruthy();
     expect(dasha.current.antardashaProgress).toBeGreaterThanOrEqual(0);
     expect(dasha.current.antardashaProgress).toBeLessThan(1);
