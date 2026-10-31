@@ -182,3 +182,23 @@ export const usageEvents = pgTable(
   (t) => [index("usage_events_user_route_time_idx").on(t.userId, t.route, t.createdAt)],
   // RLS on with no policies: only the server (Drizzle) can read or write.
 ).enableRLS();
+
+/**
+ * App-wide request slots for external APIs with strict rate limits
+ * (Nominatim: 1 request/second). Server-only; RLS on with no policies.
+ */
+export const externalThrottle = pgTable("external_throttle", {
+  name: text("name").primaryKey(),
+  nextSlot: timestamp("next_slot", { withTimezone: true }).notNull(),
+}).enableRLS();
+
+/** Cached geocoder responses (Nominatim's policy requires caching). Server-only. */
+export const geocodeCache = pgTable(
+  "geocode_cache",
+  {
+    key: text("key").primaryKey(),
+    results: jsonb("results").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("geocode_cache_created_at_idx").on(t.createdAt)],
+).enableRLS();
