@@ -59,8 +59,10 @@ npm run data:places                 # downloads from download.geonames.org
 npm run data:places -- --dir ./dl   # or use cities500.zip + admin1CodesASCII.txt you downloaded
 ```
 
-Commit the generated `data/places.json`. Without it, type-ahead is off and only
-the "Search" button (Nominatim) works.
+`npm run build` runs this automatically first (`prebuild`, with `--optional`),
+so every Vercel deployment generates `data/places.json` itself. If the download
+fails, the build still succeeds; type-ahead is then off and only the "Search"
+button (Nominatim) works. The file is not committed.
 
 ### Nominatim
 Set `NOMINATIM_USER_AGENT` to something that identifies the app and a contact,

@@ -1,6 +1,16 @@
 import { z } from "zod";
 
 /**
+ * Supabase project URL without any API path. Dashboards also show the REST URL
+ * (".../rest/v1/"); pasting that breaks sign-in (".../rest/v1/auth/v1/authorize"),
+ * so strip it and any trailing slash.
+ */
+export function normalizeSupabaseUrl(url: string | undefined): string | undefined {
+  if (!url) return url;
+  return url.trim().replace(/\/+$/, "").replace(/\/(rest|auth)\/v1$/, "").replace(/\/+$/, "");
+}
+
+/**
  * Public env vars (safe in the browser). Read with literal `process.env.X`
  * so Next.js can inline them at build time.
  */
@@ -11,8 +21,8 @@ export function publicEnv() {
       NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
     })
     .parse({
-      NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      NEXT_PUBLIC_SUPABASE_URL: normalizeSupabaseUrl(process.env.NEXT_PUBLIC_SUPABASE_URL),
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim(),
     });
 }
 
@@ -39,4 +49,20 @@ export function serverEnv(): ServerEnv {
     throw new Error("serverEnv() must not be called in the browser");
   }
   return serverSchema.parse(process.env);
+}
+
+/** Names (never values) of required settings missing on this deployment. */
+export function missingRequiredEnv(): string[] {
+  const required: [string, string | undefined][] = [
+    ["NEXT_PUBLIC_SUPABASE_URL", process.env.NEXT_PUBLIC_SUPABASE_URL],
+    ["NEXT_PUBLIC_SUPABASE_ANON_KEY", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY],
+    ["DATABASE_URL", process.env.DATABASE_URL],
+  ];
+  return required.filter(([, v]) => !v?.trim()).map(([k]) => k);
+}
+
+/** "Production", "Preview" or "Development" on Vercel; null elsewhere. */
+export function deploymentEnvironment(): string | null {
+  const e = process.env.VERCEL_ENV;
+  return e ? e.charAt(0).toUpperCase() + e.slice(1) : null;
 }

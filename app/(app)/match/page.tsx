@@ -1,4 +1,4 @@
-import { ComingSoon } from "@/components/ComingSoon";
+import { GetStarted } from "@/components/GetStarted";
 import { Disclaimer } from "@/components/Disclaimer";
 import { MatchView, type MatchProfile } from "@/components/match/MatchView";
 import { PageHeader } from "@/components/PageHeader";
@@ -16,7 +16,7 @@ export default async function MatchPage() {
     return (
       <>
         {header}
-        <ComingSoon phase={2} what="Kundali Milan (sign in and add your birth details first)" />
+        <GetStarted state={current.state} />
       </>
     );
   }

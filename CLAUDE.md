@@ -33,7 +33,7 @@ Luxon + `geo-tz`, `@google/genai`, Zod, Vitest + Playwright.
 5. Geocoding behind the `Geocoder` interface (`lib/geo/types.ts`) so Google Places
    can replace it: type-ahead from bundled GeoNames cities500 (`data/places.json`,
    CC BY 4.0; all of India + world cities with population ≥ 100,000, built by
-   `npm run data:places`) via `/api/places/suggest`; a "Search" button falls back
+   `npm run data:places`, run automatically as `prebuild` on Vercel/CI; not committed) via `/api/places/suggest`; a "Search" button falls back
    to Nominatim (`/api/places/search`, 1 req/s app-wide via `external_throttle`,
    identifying User-Agent, 30-day `geocode_cache`). Never call Nominatim per keystroke.
 6. Rate limits: stored in Postgres (`usage_events`), no Upstash.
