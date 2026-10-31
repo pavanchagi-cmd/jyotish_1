@@ -16,7 +16,7 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   // geo-tz reads its boundary data from disk at runtime; keep it out of the bundle.
-  serverExternalPackages: ["geo-tz"],
+  serverExternalPackages: ["geo-tz", "@react-pdf/renderer"],
   // Only the "all" dataset is used (lib/time/zone.ts); skip the other two (~40 MB).
   outputFileTracingExcludes: {
     "/api/**/*": ["./node_modules/geo-tz/data/timezones-1970.*", "./node_modules/geo-tz/data/timezones-now.*"],
