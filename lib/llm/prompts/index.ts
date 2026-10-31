@@ -35,6 +35,17 @@ export const PROMPTS = {
       "doshaNotes: one note for each dosha present (Bhakoot, Nadi, Manglik), with a calm meaning, an example and a practical tip. " +
       "Mention that many astrologers consider cancellations, and that a total of 18 or more is traditionally acceptable.",
   },
+  forecast: {
+    version: "forecast-v1",
+    instruction:
+      "Write the forecast for the one calendar year in the facts. " +
+      "headline: the year in one short line. why: 1–2 sentences naming the dasha periods and planets behind the year, in plain words. " +
+      "areas: career (10th house), finance (2nd and 11th), family (4th), health (6th and Lagna), marriage (7th). " +
+      "For each area use the transits touching its houses and the running dasha lords: rating 1–5 (5 = most supportive), " +
+      "label (one word such as Strong, Steady, Good, Favourable, Take care), summary (1–2 sentences), " +
+      "example (one concrete real-life example starting with \"Example:\"), and tip (one practical tip). " +
+      "Health must stay gentle and general: habits, rest and routine only.",
+  },
 } as const;
 
 export type Feature = keyof typeof PROMPTS;

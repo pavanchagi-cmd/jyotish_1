@@ -55,6 +55,26 @@ export const dashaSummarySchema = z.object({
     .max(4),
 });
 
+const area = z.object({
+  rating: z.number().int().min(1).max(5),
+  label: text(20),
+  summary: text(400),
+  example: text(300),
+  tip: text(200),
+});
+
+/** One year of the 5-year forecast (spec section 6). */
+export const forecastYearSchema = z.object({
+  year: z.number().int(),
+  headline: text(80),
+  why: text(400),
+  areas: z.object({ career: area, finance: area, family: area, health: area, marriage: area }),
+});
+
+/** Spec section 6: health text always ends with this sentence (added in code). */
+export const HEALTH_DISCLAIMER = "Astrology is not medical advice. See a doctor for any symptoms.";
+
+export type ForecastYear = z.infer<typeof forecastYearSchema>;
 export type HoroscopeReading = z.infer<typeof horoscopeSchema>;
 export type KundaliExplanation = z.infer<typeof kundaliExplanationSchema>;
 export type MatchSummary = z.infer<typeof matchSummarySchema>;
