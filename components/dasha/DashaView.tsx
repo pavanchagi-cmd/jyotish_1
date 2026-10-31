@@ -12,7 +12,7 @@ const yr = (iso: string) => iso.slice(0, 4);
 const monYr = (iso: string) => DateTime.fromISO(iso).toFormat("LLL yy");
 
 /** Dasha & transits screen body (design/Dasha.html). Numbers render at once; text loads after. */
-export function DashaView({ profileId, report }: { profileId: string; report: DashaReport }) {
+export function DashaView({ profileId, report, lang = "en" }: { profileId: string; report: DashaReport; lang?: string }) {
   const [state, retry] = useJson<{ summary: DashaSummary }>(`/api/dasha/${profileId}?summary=1`);
   const summary = state.status === "ready" ? state.data.summary : null;
   const cur = report.current;
@@ -55,7 +55,7 @@ export function DashaView({ profileId, report }: { profileId: string; report: Da
           >
             <div className="h-2 rounded bg-accent" style={{ width: `${Math.round(cur.antardashaProgress * 100)}%` }} />
           </div>
-          <div aria-live="polite">
+          <div aria-live="polite" lang={lang}>
             {state.status === "loading" ? (
               <SkeletonLines lines={3} label="Explaining your current period" />
             ) : state.status === "error" ? (

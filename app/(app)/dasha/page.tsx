@@ -28,7 +28,7 @@ export default async function DashaPage() {
   return (
     <>
       {header}
-      <DashaView profileId={current.profile.id} report={report} />
+      <DashaView profileId={current.profile.id} report={report} lang={current.profile.language} />
       <Disclaimer />
     </>
   );

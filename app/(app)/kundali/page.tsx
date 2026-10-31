@@ -46,7 +46,7 @@ export default async function KundaliPage({ searchParams }: { searchParams: Prom
 
       <KundaliView profileId={profile.id} chart={chart} />
 
-      <ChartExplanation profileId={profile.id} />
+      <ChartExplanation profileId={profile.id} lang={profile.language} />
       <Disclaimer />
     </>
   );

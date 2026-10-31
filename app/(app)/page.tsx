@@ -32,9 +32,13 @@ export default async function HomePage() {
           <h1 className="m-0 font-heading text-[28px] font-bold">{profile ? `Namaste, ${firstName(profile.fullName)}` : "Namaste"}</h1>
         </div>
         {profile ? (
-          <div aria-hidden className="flex size-11 items-center justify-center rounded-full bg-warm-strong font-semibold text-warm-text">
+          <Link
+            href="/profile"
+            aria-label={`${initials(profile.fullName)}, profile and settings`}
+            className="flex size-11 items-center justify-center rounded-full bg-warm-strong font-semibold text-warm-text no-underline hover:text-warm-text"
+          >
             {initials(profile.fullName)}
-          </div>
+          </Link>
         ) : null}
       </div>
 
@@ -52,7 +56,7 @@ export default async function HomePage() {
         </p>
       ) : null}
 
-      {profile ? <HoroscopeCard profileId={profile.id} /> : null}
+      {profile ? <HoroscopeCard profileId={profile.id} lang={profile.language} /> : null}
 
       <PanchangCard
         fallback={

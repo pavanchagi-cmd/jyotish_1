@@ -28,7 +28,7 @@ function Tile({ label, value }: { label: string; value: string }) {
 }
 
 /** Horoscope card with Today / This week / This month tabs (design/Home.html). */
-export function HoroscopeCard({ profileId }: { profileId: string }) {
+export function HoroscopeCard({ profileId, lang = "en" }: { profileId: string; lang?: string }) {
   const [period, setPeriod] = useState<Period>("day");
   const [state, retry] = useJson<HoroscopeResponse>(`/api/horoscope?profileId=${profileId}&period=${period}`);
 
@@ -50,7 +50,7 @@ export function HoroscopeCard({ profileId }: { profileId: string }) {
         ))}
       </div>
 
-      <div id="horoscope-panel" role="tabpanel" aria-live="polite" className="flex flex-col gap-3.5">
+      <div id="horoscope-panel" role="tabpanel" aria-live="polite" lang={lang} className="flex flex-col gap-3.5">
         {state.status === "loading" ? (
           <>
             <div className="h-6 w-3/4 animate-pulse rounded bg-bg" />

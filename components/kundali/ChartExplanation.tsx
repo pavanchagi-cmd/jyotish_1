@@ -13,10 +13,10 @@ function Para({ title, meaning, example }: { title: string; meaning: string; exa
 }
 
 /** "Your chart in simple words" (design/Kundali.html). */
-export function ChartExplanation({ profileId }: { profileId: string }) {
+export function ChartExplanation({ profileId, lang = "en" }: { profileId: string; lang?: string }) {
   const [state, retry] = useJson<{ explanation: KundaliExplanation }>(`/api/chart/${profileId}/explain`);
   return (
-    <section aria-labelledby="explain-title" aria-live="polite" className="flex flex-col gap-2.5 rounded-card border border-border bg-surface px-4 py-3.5">
+    <section aria-labelledby="explain-title" aria-live="polite" lang={lang} className="flex flex-col gap-2.5 rounded-card border border-border bg-surface px-4 py-3.5">
       <h2 id="explain-title" className="m-0 font-heading text-xl font-bold">
         Your chart in simple words
       </h2>

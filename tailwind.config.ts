@@ -38,7 +38,7 @@ const config: Config = {
       },
       fontFamily: {
         heading: ["var(--font-philosopher)", "Georgia", "serif"],
-        body: ["var(--font-hind)", "system-ui", "sans-serif"],
+        body: ["var(--font-hind)", "var(--font-kannada)", "system-ui", "sans-serif"],
       },
       maxWidth: {
         app: "480px",
