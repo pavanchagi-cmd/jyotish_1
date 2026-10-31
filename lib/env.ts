@@ -1,6 +1,16 @@
 import { z } from "zod";
 
 /**
+ * Supabase project URL without any API path. Dashboards also show the REST URL
+ * (".../rest/v1/"); pasting that breaks sign-in (".../rest/v1/auth/v1/authorize"),
+ * so strip it and any trailing slash.
+ */
+export function normalizeSupabaseUrl(url: string | undefined): string | undefined {
+  if (!url) return url;
+  return url.trim().replace(/\/+$/, "").replace(/\/(rest|auth)\/v1$/, "").replace(/\/+$/, "");
+}
+
+/**
  * Public env vars (safe in the browser). Read with literal `process.env.X`
  * so Next.js can inline them at build time.
  */
@@ -11,8 +21,8 @@ export function publicEnv() {
       NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
     })
     .parse({
-      NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      NEXT_PUBLIC_SUPABASE_URL: normalizeSupabaseUrl(process.env.NEXT_PUBLIC_SUPABASE_URL),
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim(),
     });
 }
 
