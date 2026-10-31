@@ -50,3 +50,19 @@ export function serverEnv(): ServerEnv {
   }
   return serverSchema.parse(process.env);
 }
+
+/** Names (never values) of required settings missing on this deployment. */
+export function missingRequiredEnv(): string[] {
+  const required: [string, string | undefined][] = [
+    ["NEXT_PUBLIC_SUPABASE_URL", process.env.NEXT_PUBLIC_SUPABASE_URL],
+    ["NEXT_PUBLIC_SUPABASE_ANON_KEY", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY],
+    ["DATABASE_URL", process.env.DATABASE_URL],
+  ];
+  return required.filter(([, v]) => !v?.trim()).map(([k]) => k);
+}
+
+/** "Production", "Preview" or "Development" on Vercel; null elsewhere. */
+export function deploymentEnvironment(): string | null {
+  const e = process.env.VERCEL_ENV;
+  return e ? e.charAt(0).toUpperCase() + e.slice(1) : null;
+}

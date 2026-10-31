@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { deploymentEnvironment, missingRequiredEnv } from "@/lib/env";
 import type { CurrentProfile } from "@/lib/profiles/current";
 
 /**
@@ -7,17 +8,28 @@ import type { CurrentProfile } from "@/lib/profiles/current";
  */
 export function GetStarted({ state }: { state: Exclude<CurrentProfile["state"], "ready"> }) {
   if (state === "unconfigured") {
+    const missing = missingRequiredEnv();
+    const env = deploymentEnvironment();
     return (
       <section aria-labelledby="setup-title" className="flex flex-col gap-2.5 rounded-card-lg border border-warm-border bg-warm-surface p-4">
         <h2 id="setup-title" className="m-0 text-base font-semibold text-warm-text">
           Setup needed: sign-in and database are not connected
         </h2>
         <p className="m-0 text-sm leading-normal text-warm-soft">
-          This deployment has no Supabase settings, so nobody can sign in or save birth details yet. The site owner needs to
-          add <code>NEXT_PUBLIC_SUPABASE_URL</code>, <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code> and <code>DATABASE_URL</code> in
-          Vercel → Project → Settings → Environment Variables, then redeploy. Sign-in and the birth details form then appear
-          automatically.
+          Nobody can sign in or save birth details on this deployment yet. In Vercel → Project → Settings → Environment
+          Variables, add the settings below{env ? <> for the <b>{env}</b> environment</> : null}, then redeploy. Sign-in and
+          the birth details form then appear automatically.
         </p>
+        <div className="text-sm text-warm-soft">
+          Missing here:
+          <ul className="mt-1 mb-0 pl-5">
+            {missing.map((m) => (
+              <li key={m}>
+                <code>{m}</code>
+              </li>
+            ))}
+          </ul>
+        </div>
         <Link href="/onboarding" className="flex min-h-11 items-center self-start text-sm font-semibold">
           Preview the birth details form
         </Link>
