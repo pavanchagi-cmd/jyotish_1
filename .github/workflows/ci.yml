@@ -59,3 +59,41 @@ jobs:
           name: playwright-traces
           path: test-results/
           retention-days: 7
+
+  e2e-signed-in:
+    # Signed in with a saved profile: every Explore card and bottom-nav tab opens its page.
+    # Stand-in Supabase Auth (tests/e2e-signed-in/mock-supabase.mjs) + real Postgres.
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: jyotish_e2e
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/jyotish_e2e
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build:e2e-signed-in
+      - run: npm run test:e2e-signed-in
+        env:
+          CI: "true"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-traces-signed-in
+          path: test-results/
+          retention-days: 7

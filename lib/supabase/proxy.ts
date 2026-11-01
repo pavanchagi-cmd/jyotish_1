@@ -3,7 +3,7 @@ import { createServerClient } from "@supabase/ssr";
 import { hasSupabaseEnv, publicEnv } from "@/lib/env";
 
 /** Paths reachable without signing in. */
-const PUBLIC_PATHS = ["/login", "/auth/callback", "/privacy", "/api/health"];
+const PUBLIC_PATHS = ["/login", "/auth/callback", "/privacy", "/api/health", "/api/env-check"];
 
 export function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));

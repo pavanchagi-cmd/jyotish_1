@@ -87,10 +87,16 @@ Luxon + `geo-tz`, `@google/genai`, Zod, Vitest + Playwright.
   `lib/db/account.ts`); `/profile` has language, saved profiles, delete my data
   (`DELETE /api/me` deletes all rows, then the auth user if
   `SUPABASE_SERVICE_ROLE_KEY` is set). `/privacy` is public; TODO(owner) legal review.
+- Setup diagnostics (public, no values): `/api/health` (settings, DB, migrations,
+  places) and `/api/env-check` (each required variable at build vs run time,
+  VERCEL_ENV, branch, commit, deployment URL). Deployment URLs are immutable
+  snapshots: env changes need a redeploy and the NEW URL.
 - Languages: readings follow the profile language; Noto Sans Kannada is loaded.
   UI strings are English until the owner supplies Hindi/Kannada strings.
 - E2E: `npm run build && npm run test:e2e` (Playwright, 390px + 1280px, axe zero
-  serious violations); CI job `e2e`.
+  serious violations); CI job `e2e`. Signed-in navigation:
+  `npm run build:e2e-signed-in && npm run test:e2e-signed-in` (mock Supabase Auth +
+  `TEST_DATABASE_URL`); CI job `e2e-signed-in`.
 
 ## Layout
 ```

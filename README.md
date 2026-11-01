@@ -81,6 +81,14 @@ End-to-end and accessibility tests (Playwright + axe, 390px and 1280px):
 npm run build && npm run test:e2e
 ```
 
+Signed-in navigation (every Explore card and bottom-nav tab) runs against a
+stand-in Supabase Auth server and a throwaway Postgres (wiped):
+
+```bash
+TEST_DATABASE_URL=postgres://postgres:postgres@localhost:5432/jyotish_e2e npm run build:e2e-signed-in
+TEST_DATABASE_URL=postgres://postgres:postgres@localhost:5432/jyotish_e2e npm run test:e2e-signed-in
+```
+
 API/database integration tests run when `TEST_DATABASE_URL` points at a
 throwaway Postgres (the database is wiped). CI provides one.
 
