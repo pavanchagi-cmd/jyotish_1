@@ -18,6 +18,8 @@
     "db:migrate": "drizzle-kit migrate",
     "data:places": "tsx scripts/build-places.ts",
     "test:e2e": "playwright test",
+    "build:e2e-signed-in": "NEXT_PUBLIC_SUPABASE_URL=http://localhost:54329 NEXT_PUBLIC_SUPABASE_ANON_KEY=e2e-anon-key next build",
+    "test:e2e-signed-in": "playwright test -c playwright.signed-in.config.ts",
     "prebuild": "tsx scripts/build-places.ts --optional"
   },
   "dependencies": {

@@ -90,7 +90,9 @@ Luxon + `geo-tz`, `@google/genai`, Zod, Vitest + Playwright.
 - Languages: readings follow the profile language; Noto Sans Kannada is loaded.
   UI strings are English until the owner supplies Hindi/Kannada strings.
 - E2E: `npm run build && npm run test:e2e` (Playwright, 390px + 1280px, axe zero
-  serious violations); CI job `e2e`.
+  serious violations); CI job `e2e`. Signed-in navigation:
+  `npm run build:e2e-signed-in && npm run test:e2e-signed-in` (mock Supabase Auth +
+  `TEST_DATABASE_URL`); CI job `e2e-signed-in`.
 
 ## Layout
 ```
