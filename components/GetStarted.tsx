@@ -30,6 +30,13 @@ export function GetStarted({ state }: { state: Exclude<CurrentProfile["state"], 
             ))}
           </ul>
         </div>
+        {env ? (
+          <p className="m-0 text-[13px] leading-normal text-warm-soft">
+            Each Vercel deployment link keeps the settings it was built with. After you change settings and redeploy,
+            open the new deployment (or the branch/production link), not this one. Check any deployment at{" "}
+            <code>/api/env-check</code>.
+          </p>
+        ) : null}
         <Link href="/onboarding" className="flex min-h-11 items-center self-start text-sm font-semibold">
           Preview the birth details form
         </Link>
